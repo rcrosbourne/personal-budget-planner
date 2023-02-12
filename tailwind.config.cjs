@@ -55,31 +55,31 @@ module.exports = {
           700: "#421987",
           800: "#34126F",
           900: "#240754"
+        },
+        red: {
+          50: "#FFEEEE",
+          100: "#FACDCD",
+          200: "#F29B9B",
+          300: "#E66A6A",
+          400: "#D64545",
+          500: "#BA2525",
+          600: "#A61B1B",
+          700: "#911111",
+          800: "#780A0A",
+          900: "#610404"
+        },
+        yellow: {
+          50: "#FFFAEB",
+          100: "#FCEFC7",
+          200: "#F8E3A3",
+          300: "#F9DA8B",
+          400: "#F7D070",
+          500: "#E9B949",
+          600: "#C99A2E",
+          700: "#A27C1A",
+          800: "#7C5E10",
+          900: "#513C06"
         }
-      },
-      red: {
-        50: "#FFEEEE",
-        100: "#FACDCD",
-        200: "#F29B9B",
-        300: "#E66A6A",
-        400: "#D64545",
-        500: "#BA2525",
-        600: "#A61B1B",
-        700: "#911111",
-        800: "#780A0A",
-        900: "#610404"
-      },
-      yellow: {
-        50: "#FFFAEB",
-        100: "#FCEFC7",
-        200: "#F8E3A3",
-        300: "#F9DA8B",
-        400: "#F7D070",
-        500: "#E9B949",
-        600: "#C99A2E",
-        700: "#A27C1A",
-        800: "#7C5E10",
-        900: "#513C06"
       }
     },
     extend: {
@@ -93,6 +93,6 @@ module.exports = {
     require("@tailwindcss/forms"),
     require("@tailwindcss/typography"),
     require("@tailwindcss/aspect-ratio"),
-    require("@tailwindcss/line-clamp"),
+    require("@tailwindcss/line-clamp")
   ]
 };
