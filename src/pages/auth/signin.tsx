@@ -10,6 +10,7 @@ import Button from "../../components/Button";
 import { z } from "zod";
 import MainWrapper from "../../components/MainWrapper";
 import Link from "next/link";
+import Head from "next/head";
 
 const signInSchema = z.object({
   email: z.string().email({ message: "Email address is required" }),
@@ -55,6 +56,11 @@ export default function Signin({ csrfToken }: { csrfToken: string }) {
   }, [router]);
   return (
     <>
+      <Head>
+        <title>Sign In</title>
+        <meta name="description" content="" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <MainWrapper>
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <h2 className="text-gray-900 mt-6 text-center font-cursive text-3xl font-bold tracking-tight">

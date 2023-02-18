@@ -17,7 +17,7 @@ const TextInput = (
     hasErrors,
     errorMessage,
     ...delegated
-  }: TextInputProps,
+  }: TextInputProps & React.InputHTMLAttributes<HTMLInputElement>,
   ref: React.ForwardedRef<HTMLInputElement>
 ) => {
   const generatedId = React.useId();

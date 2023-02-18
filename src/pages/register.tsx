@@ -11,6 +11,7 @@ import TextInput from "../components/TextInput";
 import Link from "next/link";
 import Button from "../components/Button";
 import MainWrapper from "../components/MainWrapper";
+import Head from "next/head";
 
 const registerSchema = z
   .object({
@@ -76,6 +77,9 @@ export default function Register({ csrfToken }: { csrfToken: string }) {
   };
   return (
     <>
+      <Head>
+        <title>Register</title>
+      </Head>
       <MainWrapper>
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <h2 className="mt-6 text-center font-cursive text-3xl font-bold tracking-tight text-neutral-900">
@@ -90,6 +94,7 @@ export default function Register({ csrfToken }: { csrfToken: string }) {
               <TextInput
                 label={"Name"}
                 hasErrors={!!errors.name}
+                autoFocus={true}
                 errorMessage={errors?.name?.message?.toString()}
                 {...register("name")}
               />
@@ -98,6 +103,7 @@ export default function Register({ csrfToken }: { csrfToken: string }) {
                 hasErrors={!!errors.email}
                 errorMessage={errors?.email?.message?.toString()}
                 type="email"
+                autoComplete={"new-email"}
                 {...register("email")}
               />
               <TextInput
@@ -105,6 +111,7 @@ export default function Register({ csrfToken }: { csrfToken: string }) {
                 hasErrors={!!errors.password}
                 errorMessage={errors?.password?.message?.toString()}
                 type="password"
+                autoComplete="new-password"
                 {...register("password")}
               />
               <TextInput
