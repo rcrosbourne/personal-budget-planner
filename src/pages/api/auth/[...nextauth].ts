@@ -63,7 +63,7 @@ export const authOptions: NextAuthOptions = {
           },
         });
         if (!user || !user.password) {
-          throw new Error("Invalid email/password");
+          throw new Error("User not found");
         }
         const isValid = await compare(credentials.password, user.password);
         if (!isValid) {

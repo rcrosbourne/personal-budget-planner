@@ -22,7 +22,7 @@ const TextInput = (
 ) => {
   const generatedId = React.useId();
   return (
-    <div>
+    <div className="h-24">
       <label
         htmlFor={generatedId}
         className="block text-sm font-medium text-neutral-700"
@@ -40,38 +40,21 @@ const TextInput = (
           } px-3 py-2 placeholder-neutral-400 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm`}
         />
       </div>
-      <AnimatePresence>
-        {hasErrors && errorMessage && (
+      <AnimatePresence initial={false}>
+        {hasErrors && (
           <motion.p
-            initial={{ opacity: 0, x: -200 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 200 }}
-            key={errorMessage}
-            className={`mt-1 text-sm text-secondary-red-600 ${
-              !hasErrors ? "opacity-0" : "opacity-100"
-            }`}
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            key="error"
+            className={`mt-1 text-sm text-secondary-red-600`}
           >
             {errorMessage}
           </motion.p>
         )}
       </AnimatePresence>
-      {/*<p*/}
-      {/*  className={`mt-1 text-sm text-secondary-red-600 ${*/}
-      {/*    !hasErrors ? "opacity-0" : "opacity-100"*/}
-      {/*  }`}*/}
-      {/*>*/}
-      {/*  {errorMessage || "Placeholder"}*/}
-      {/*</p>*/}
     </div>
   );
 };
 export default React.forwardRef(TextInput);
-// <AnimatePresence>
-//   <motion.img
-//     key={image.src}
-//     src={image.src}
-//     initial={{ opacity: 0, y: 200 }}
-//     animate={{ opacity: 1 }}
-//     exit={{ opacity: 0 }}
-//   />
-// </AnimatePresence>;

@@ -29,7 +29,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <SessionProvider session={session}>
-      <main className={`${wotfard.variable} ${sriacha.variable} h-full`}>
+      <main className={`${wotfard.variable} ${sriacha.variable}`}>
         <Component {...pageProps} />
       </main>
     </SessionProvider>

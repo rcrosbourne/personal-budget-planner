@@ -8,18 +8,26 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import TextInput from "../components/TextInput";
+import Link from "next/link";
 import Button from "../components/Button";
+import MainWrapper from "../components/MainWrapper";
 
 const registerSchema = z
   .object({
-    email: z.string().email({ message: "Please enter a valid email address" }),
+    email: z
+      .string()
+      .trim()
+      .email({ message: "Please enter a valid email address" }),
     password: z
       .string()
       .min(6, { message: "Password must be at least 6 characters" }),
     passwordConfirm: z
       .string()
       .min(6, { message: "Password must be at least 6 characters" }),
-    name: z.string().min(2, { message: "Name must be at least 2 characters" }),
+    name: z
+      .string()
+      .trim()
+      .min(2, { message: "Name must be at least 2 characters" }),
   })
   .refine((data) => data.password === data.passwordConfirm, {
     message: "Passwords do not match",
@@ -68,9 +76,9 @@ export default function Register({ csrfToken }: { csrfToken: string }) {
   };
   return (
     <>
-      <div className="flex min-h-full flex-col justify-center bg-neutral-100 py-12 sm:px-6 lg:px-8">
+      <MainWrapper>
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
-          <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-neutral-900">
+          <h2 className="mt-6 text-center font-cursive text-3xl font-bold tracking-tight text-neutral-900">
             Register
           </h2>
         </div>
@@ -117,9 +125,15 @@ export default function Register({ csrfToken }: { csrfToken: string }) {
                 isDisabled={createUserMutation.isLoading}
               />
             </form>
+            <Link
+              href="/auth/signin"
+              className="text-md mt-2 inline-block font-medium text-secondary-blue-900 hover:text-secondary-blue-700 hover:underline"
+            >
+              Already have an account? Sign in
+            </Link>
           </div>
         </div>
-      </div>
+      </MainWrapper>
     </>
   );
 }

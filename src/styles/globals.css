@@ -4,8 +4,10 @@
 @layer base {
     html,
     body,
-    #__next /* for Next.js */
+    #__next, /* for Next.js */
+    main
     {
         height: 100%;
     }
+    
 }

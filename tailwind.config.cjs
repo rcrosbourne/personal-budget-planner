@@ -17,7 +17,7 @@ module.exports = {
         600: "#199473",
         700: "#147D64",
         800: "#0C6B58",
-        900: "#014D40"
+        900: "#014D40",
       },
       neutral: {
         50: "#F0F4F8",
@@ -29,7 +29,7 @@ module.exports = {
         600: "#486581",
         700: "#334E68",
         800: "#243B53",
-        900: "#102A43"
+        900: "#102A43",
       },
       secondary: {
         blue: {
@@ -42,7 +42,7 @@ module.exports = {
           600: "#186FAF",
           700: "#0F609B",
           800: "#0A558C",
-          900: "#003E6B"
+          900: "#003E6B",
         },
         purple: {
           50: "#EAE2F8",
@@ -54,7 +54,7 @@ module.exports = {
           600: "#51279B",
           700: "#421987",
           800: "#34126F",
-          900: "#240754"
+          900: "#240754",
         },
         red: {
           50: "#FFEEEE",
@@ -66,7 +66,7 @@ module.exports = {
           600: "#A61B1B",
           700: "#911111",
           800: "#780A0A",
-          900: "#610404"
+          900: "#610404",
         },
         yellow: {
           50: "#FFFAEB",
@@ -78,21 +78,35 @@ module.exports = {
           600: "#C99A2E",
           700: "#A27C1A",
           800: "#7C5E10",
-          900: "#513C06"
-        }
-      }
+          900: "#513C06",
+        },
+      },
     },
     extend: {
       fontFamily: {
         sans: ["var(--font-wotfard)", "sans-serif"],
-        cursive: ["var(--font-sriacha)", "cursive"]
-      }
-    }
+        cursive: ["var(--font-sriacha)", "cursive"],
+      },
+      keyframes: {
+        fadeOut: {
+          "0%": { opacity: 1 },
+          "50%": { opacity: 0.5 },
+          "100%": { opacity: 0 },
+        },
+      },
+      animation: {
+        fadeOut: "fadeOut 1s ease-in-out reverse",
+      },
+      backgroundImage: {
+        "conic-gradient":
+          "conic-gradient(at top right, var(--tw-gradient-stops))",
+      },
+    },
   },
   plugins: [
     require("@tailwindcss/forms"),
     require("@tailwindcss/typography"),
     require("@tailwindcss/aspect-ratio"),
-    require("@tailwindcss/line-clamp")
-  ]
+    require("@tailwindcss/line-clamp"),
+  ],
 };
