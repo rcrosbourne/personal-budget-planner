@@ -24,7 +24,22 @@ const Home: NextPage = () => {
               <h2 className="text-2xl font-bold text-neutral-100">
                 Personal Budget Planner
               </h2>
-              <MobileMenu authenticated={false} />
+              <MobileMenu>
+                <Link
+                  href="/register"
+                  className="block px-4 py-2 text-2xl text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900 hover:underline"
+                  role="menuitem"
+                >
+                  Register
+                </Link>
+                <Link
+                  href="/auth/signin"
+                  className="block px-4 py-2 text-2xl text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900 hover:underline"
+                  role="menuitem"
+                >
+                  Sign In
+                </Link>
+              </MobileMenu>
             </div>
           </div>
         </header>

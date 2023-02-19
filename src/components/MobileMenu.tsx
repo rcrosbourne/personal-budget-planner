@@ -2,13 +2,11 @@ import React from "react";
 import { Menu, X } from "react-feather";
 import * as Dialog from "@radix-ui/react-dialog";
 import { AnimatePresence, motion } from "framer-motion";
-import { signOut } from "next-auth/react";
-import Link from "next/link";
 
 export default function MobileMenu({
-  authenticated,
+  children,
 }: {
-  authenticated: boolean;
+  children: React.ReactNode;
 }) {
   const [open, setOpen] = React.useState(false);
   return (
@@ -31,13 +29,11 @@ export default function MobileMenu({
                 initial={{
                   opacity: 0,
                   scale: 0.5,
-                  x: "100%",
                 }}
-                animate={{ opacity: 1, x: 0, y: 0, scale: 1 }}
+                animate={{ opacity: 1, scale: 1 }}
                 exit={{
                   opacity: 0,
                   scale: 0.5,
-                  x: "100%",
                 }}
                 transition={{ duration: 0.3, type: "spring" }}
               >
@@ -47,34 +43,7 @@ export default function MobileMenu({
                   aria-orientation="vertical"
                   aria-labelledby="options-menu"
                 >
-                  {authenticated ? (
-                    <button
-                      onClick={() =>
-                        signOut({ redirect: false, callbackUrl: "/" })
-                      }
-                      className="block px-4 py-2 text-2xl text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900 hover:underline"
-                      role="menuitem"
-                    >
-                      Sign Out
-                    </button>
-                  ) : (
-                    <React.Fragment>
-                      <Link
-                        href="/register"
-                        className="block px-4 py-2 text-2xl text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900 hover:underline"
-                        role="menuitem"
-                      >
-                        Register
-                      </Link>
-                      <Link
-                        href="/auth/signin"
-                        className="block px-4 py-2 text-2xl text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900 hover:underline"
-                        role="menuitem"
-                      >
-                        Sign In
-                      </Link>
-                    </React.Fragment>
-                  )}
+                  {children}
                 </div>
                 <Dialog.Close
                   className="absolute top-0 right-0 mt-4 mr-4 cursor-pointer p-2  "

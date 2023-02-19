@@ -13,7 +13,15 @@ export default function Dashboard() {
               <h2 className="text-2xl font-bold text-neutral-100">
                 Personal Budget Planner
               </h2>
-              <MobileMenu authenticated={true} />
+              <MobileMenu>
+                <button
+                  onClick={() => signOut({ redirect: false, callbackUrl: "/" })}
+                  className="block px-4 py-2 text-2xl text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900 hover:underline"
+                  role="menuitem"
+                >
+                  Sign Out
+                </button>
+              </MobileMenu>
             </div>
           </div>
         </header>
