@@ -1,3 +1,4 @@
+import React from "react";
 import type { CtxOrReq } from "next-auth/client/_utils";
 import { getCsrfToken, signIn } from "next-auth/react";
 import { api } from "../utils/api";
@@ -46,27 +47,36 @@ export default function Register({ csrfToken }: { csrfToken: string }) {
   } = useForm({
     resolver: zodResolver(registerSchema),
   });
-  const submitHandler = async (data: FieldValues) => {
-    createUserMutation.mutate({
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      email: data.email,
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      password: data.password,
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      name: data.name,
-    });
-    // // sign in user
-    const status = await signIn("credentials", {
-      email: data.email,
-      password: data.password,
-      redirect: false,
-      callbackUrl: "/dashboard",
-    });
-    if (status && !status.ok && status.error) {
-      setError("email", { type: "manual", message: status.error });
+
+  React.useEffect(() => {
+    async function signInUser(data: FieldValues) {
+      const status = await signIn("credentials", {
+        email: data.email,
+        password: data.password,
+        redirect: false,
+      });
+      if (status && !status.ok && status.error) {
+        setError("email", { type: "manual", message: status.error });
+      }
     }
-    if (status && status.ok && status.url) {
-      await router.push(status.url);
+
+    if (createUserMutation.isSuccess) {
+      void signInUser(createUserMutation.data);
+    }
+  }, [createUserMutation.isSuccess]);
+  const submitHandler = async (data: FieldValues) => {
+    try {
+      createUserMutation.mutate({
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        email: data.email,
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        password: data.password,
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        name: data.name,
+      });
+    } catch (error) {
+      console.error(error);
+      setError("email", { type: "manual", message: "Failed to register user" });
     }
   };
   return (

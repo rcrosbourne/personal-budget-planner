@@ -17,13 +17,16 @@ export const userRouter = createTRPCRouter({
         email: z.string(),
         name: z.string(),
         id: z.string(),
+        password: z.string().optional(),
       });
-      return await ctx.prisma.user.create({
+      const userFromDb = await ctx.prisma.user.create({
         data: {
           email: input.email,
           name: input.name,
           password: await hash(input.password, 10),
         },
       });
+      userFromDb.password = input.password;
+      return newUserOutputSchema.parse(userFromDb);
     }),
 });

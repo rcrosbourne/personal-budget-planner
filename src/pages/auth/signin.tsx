@@ -35,15 +35,11 @@ export default function Signin({ csrfToken }: { csrfToken: string }) {
       email: data.email as string,
       password: data.password as string,
       redirect: false,
-      callbackUrl: "/",
     });
     if (status && !status.ok && status.error) {
       setError("email", { type: "manual", message: status.error });
       setIsSubmitting(false);
       return;
-    }
-    if (status && status.ok && status.url) {
-      await router.push(status.url);
     }
   };
   return (
