@@ -11,6 +11,7 @@ import { z } from "zod";
 import MainWrapper from "../../components/MainWrapper";
 import Link from "next/link";
 import Head from "next/head";
+import GuestLayout from "../../components/GuestLayout";
 
 const signInSchema = z.object({
   email: z.string().email({ message: "Email address is required" }),
@@ -45,17 +46,8 @@ export default function Signin({ csrfToken }: { csrfToken: string }) {
       await router.push(status.url);
     }
   };
-  React.useEffect(() => {
-    async function checkSession() {
-      const session = await getSession();
-      if (session && session.user) {
-        await router.push("/");
-      }
-    }
-    void checkSession();
-  }, [router]);
   return (
-    <>
+    <GuestLayout>
       <Head>
         <title>Sign In</title>
         <meta name="description" content="" />
@@ -96,7 +88,7 @@ export default function Signin({ csrfToken }: { csrfToken: string }) {
           </div>
         </div>
       </MainWrapper>
-    </>
+    </GuestLayout>
   );
 }
 

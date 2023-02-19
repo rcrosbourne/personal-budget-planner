@@ -21,23 +21,23 @@ const wotfard = localFont({
 const bariol = localFont({
   src: [
     {
-      path: "../assets/fonts/bariol/bariol_light-webfont.woff2",
-      weight: "400",
-      style: "light",
-    },
-    {
-      path: "../assets/fonts/bariol/bariol_light_italic-webfont.woff2",
-      weight: "400",
-      style: "italic",
-    },
-    {
       path: "../assets/fonts/bariol/bariol_thin-webfont.woff2",
-      weight: "400",
+      weight: "100",
       style: "thin",
     },
     {
       path: "../assets/fonts/bariol/bariol_thin_italic-webfont.woff2",
-      weight: "400",
+      weight: "100",
+      style: "italic",
+    },
+    {
+      path: "../assets/fonts/bariol/bariol_light-webfont.woff2",
+      weight: "300",
+      style: "light",
+    },
+    {
+      path: "../assets/fonts/bariol/bariol_light_italic-webfont.woff2",
+      weight: "300",
       style: "italic",
     },
     {

@@ -1,17 +1,17 @@
 import type { CtxOrReq } from "next-auth/client/_utils";
-import { getCsrfToken, signIn, useSession } from "next-auth/react";
+import { getCsrfToken, signIn } from "next-auth/react";
 import { api } from "../utils/api";
 import { useRouter } from "next/router";
 import { z } from "zod";
 import type { FieldValues } from "react-hook-form";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect } from "react";
 import TextInput from "../components/TextInput";
 import Link from "next/link";
 import Button from "../components/Button";
 import MainWrapper from "../components/MainWrapper";
 import Head from "next/head";
+import GuestLayout from "../components/GuestLayout";
 
 const registerSchema = z
   .object({
@@ -36,7 +36,6 @@ const registerSchema = z
   });
 export default function Register({ csrfToken }: { csrfToken: string }) {
   // use create user mutation
-  const session = useSession();
   const createUserMutation = api.user.register.useMutation();
   const router = useRouter();
   const {
@@ -47,11 +46,6 @@ export default function Register({ csrfToken }: { csrfToken: string }) {
   } = useForm({
     resolver: zodResolver(registerSchema),
   });
-  useEffect(() => {
-    if (session && session.data?.user) {
-      void router.push("/");
-    }
-  }, [session, router]);
   const submitHandler = async (data: FieldValues) => {
     createUserMutation.mutate({
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
@@ -66,7 +60,7 @@ export default function Register({ csrfToken }: { csrfToken: string }) {
       email: data.email,
       password: data.password,
       redirect: false,
-      callbackUrl: "/",
+      callbackUrl: "/dashboard",
     });
     if (status && !status.ok && status.error) {
       setError("email", { type: "manual", message: status.error });
@@ -76,7 +70,7 @@ export default function Register({ csrfToken }: { csrfToken: string }) {
     }
   };
   return (
-    <>
+    <GuestLayout>
       <Head>
         <title>Register</title>
       </Head>
@@ -141,7 +135,7 @@ export default function Register({ csrfToken }: { csrfToken: string }) {
           </div>
         </div>
       </MainWrapper>
-    </>
+    </GuestLayout>
   );
 }
 
