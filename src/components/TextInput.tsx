@@ -1,6 +1,7 @@
 import React from "react";
 import { z } from "zod";
 import { motion, AnimatePresence } from "framer-motion";
+import classNames from "classnames";
 // FieldErrors<FieldValues>
 const TextInputSchema = z.object({
   label: z.string(),
@@ -35,9 +36,13 @@ const TextInput = (
           id={generatedId}
           ref={ref}
           type={type}
-          className={`block w-full appearance-none rounded-md border ${
-            hasErrors ? "border-secondary-red-400" : "border-neutral-300"
-          } px-3 py-2 placeholder-neutral-400 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm`}
+          className={classNames(
+            "block w-full appearance-none rounded-md border px-3 py-2 placeholder-neutral-400 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm",
+            {
+              "border-secondary-red-400": hasErrors,
+              "border-neutral-300": !hasErrors,
+            }
+          )}
         />
       </div>
       <AnimatePresence initial={false}>

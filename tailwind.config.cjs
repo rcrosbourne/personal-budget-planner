@@ -1,3 +1,4 @@
+const { fontFamily } = require('tailwindcss/defaultTheme')
 /** @type {import("tailwindcss").Config} */
 module.exports = {
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
@@ -84,7 +85,7 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        sans: ["var(--font-wotfard)", "sans-serif"],
+        sans: ["var(--font-bariol)", "var(--font-wotfard)", ...fontFamily.sans],
         cursive: ["var(--font-sriacha)", "cursive"],
       },
       keyframes: {

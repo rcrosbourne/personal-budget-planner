@@ -7,10 +7,9 @@ import { api } from "../utils/api";
 import mobileScreenshot from "../assets/images/mobile-screenshot.png";
 import React from "react";
 import Image from "next/image";
+import { Menu } from "react-feather";
 
 const Home: NextPage = () => {
-  const hello = api.example.hello.useQuery({ text: "folks" });
-
   return (
     <>
       <Head>
@@ -19,8 +18,20 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className={`min-h-full bg-neutral-100`}>
+        <header>
+          <div className="relative bg-gradient-to-r from-primary-400 to-primary-600 p-4">
+            <div className="mx-auto flex w-full max-w-7xl items-center justify-between">
+              <h2 className="text-2xl font-bold text-neutral-100">
+                Personal Budget Planner
+              </h2>
+              <button>
+                <Menu className="text-neutral-100" />
+              </button>
+            </div>
+          </div>
+        </header>
         <div className="flex flex-col items-center gap-2">
-          <p className="text-2xl">Initalizing Budget App</p>
+          <h2>A better way to manage and plan your budget</h2>
           <svg
             viewBox="0 0 366 729"
             role="img"
