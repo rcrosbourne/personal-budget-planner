@@ -7,6 +7,7 @@ import AppScreenshot from "../components/AppScreenshot";
 import GuestLayout from "../components/GuestLayout";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Close } from "@radix-ui/react-dialog";
+import MobileMenu from "../components/MobileMenu";
 
 const Home: NextPage = () => {
   return (
@@ -23,49 +24,7 @@ const Home: NextPage = () => {
               <h2 className="text-2xl font-bold text-neutral-100">
                 Personal Budget Planner
               </h2>
-              <Dialog.Root>
-                <Dialog.Trigger className="relative" asChild>
-                  <button className="p-2">
-                    <Menu className="text-neutral-100" />
-                    <span className="sr-only">Show menu</span>
-                  </button>
-                </Dialog.Trigger>
-                <Dialog.Portal>
-                  <Dialog.Overlay className="fixed inset-0 bg-neutral-900 bg-opacity-30" />
-                  <Dialog.Content className="absolute top-0 right-0 mt-0 min-h-full w-3/4 w-56 origin-top-right rounded-md bg-neutral-100 p-4 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                    <div
-                      className="mt-10"
-                      role="menu"
-                      aria-orientation="vertical"
-                      aria-labelledby="options-menu"
-                    >
-                      <Link
-                        href="/register"
-                        className="block px-4 py-2 text-2xl text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900 hover:underline"
-                        role="menuitem"
-                      >
-                        Register
-                      </Link>
-                      <Link
-                        href="/auth/signin"
-                        className="block px-4 py-2 text-2xl text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900 hover:underline"
-                        role="menuitem"
-                      >
-                        Sign In
-                      </Link>
-                    </div>
-                    <Dialog.Close
-                      className="absolute top-0 right-0 mt-4 mr-4 cursor-pointer p-2  "
-                      asChild
-                    >
-                      <button>
-                        <X className="text-neutral-900" />
-                        <span className="sr-only">Close menu</span>
-                      </button>
-                    </Dialog.Close>
-                  </Dialog.Content>
-                </Dialog.Portal>
-              </Dialog.Root>
+              <MobileMenu authenticated={false} />
             </div>
           </div>
         </header>
