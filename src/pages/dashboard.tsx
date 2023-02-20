@@ -3,9 +3,17 @@ import { signOut } from "next-auth/react";
 import AuthLayout from "../components/AuthLayout";
 import MobileMenu from "../components/MobileMenu";
 
+import Head from "next/head";
+import NewBudgetButton from "../components/NewBudgetButton";
+import ViewBudgetHistoryButton from "../components/ViewBudgetHistoryButton";
+import MainActionsWrapper from "../components/MainActionsWrapper";
+
 export default function Dashboard() {
   return (
     <AuthLayout>
+      <Head>
+        <title>Dashboard</title>
+      </Head>
       <div className="min-h-100">
         <header>
           <div className="relative bg-gradient-to-r from-primary-500 to-primary-600 p-4">
@@ -25,12 +33,18 @@ export default function Dashboard() {
             </div>
           </div>
         </header>
+        <div className="mx-auto px-4">
+          <MainActionsWrapper>
+            <NewBudgetButton />
+            <ViewBudgetHistoryButton />
+          </MainActionsWrapper>
+
+          <h3 className="mt-4 text-2xl font-bold text-neutral-900 ">
+            March 2022
+          </h3>
+          {/*    Widget section */}
+        </div>
       </div>
-      <h1>Dashboard</h1>;
-      <button onClick={() => signOut({ redirect: false, callbackUrl: "/" })}>
-        Sign out
-      </button>
-      ;
     </AuthLayout>
   );
 }
