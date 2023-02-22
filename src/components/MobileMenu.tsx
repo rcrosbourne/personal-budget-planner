@@ -2,7 +2,6 @@ import React from "react";
 import { Menu, X } from "react-feather";
 import * as Dialog from "@radix-ui/react-dialog";
 import { AnimatePresence, motion } from "framer-motion";
-import { bariol } from "../pages/_app";
 
 export default function MobileMenu({
   children,
