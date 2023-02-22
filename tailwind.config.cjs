@@ -85,7 +85,7 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        sans: ["var(--font-bariol)", "var(--font-wotfard)", ...fontFamily.sans],
+        sans: ["var(--font-bariol)", ...fontFamily.sans],
         cursive: ["var(--font-sriacha)", "cursive"],
       },
       keyframes: {

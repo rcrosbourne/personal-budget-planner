@@ -2,6 +2,7 @@ import React from "react";
 import { Menu, X } from "react-feather";
 import * as Dialog from "@radix-ui/react-dialog";
 import { AnimatePresence, motion } from "framer-motion";
+import { bariol } from "../pages/_app";
 
 export default function MobileMenu({
   children,
@@ -23,7 +24,7 @@ export default function MobileMenu({
             <Dialog.Overlay className="fixed inset-0 bg-neutral-900 bg-opacity-30" />
             <Dialog.Content
               asChild
-              className="absolute top-0 right-0 mt-0 min-h-full w-3/4 w-56 origin-top-right rounded-md bg-neutral-100 p-4 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+              className={`absolute top-0 right-0 mt-0 min-h-full w-3/4 w-56 origin-top-right rounded-md bg-neutral-100 p-4 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none`}
             >
               <motion.div
                 initial={{

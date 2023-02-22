@@ -1,6 +1,7 @@
 import { type AppType } from "next/app";
 import { type Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
+import Head from "next/head";
 
 import { api } from "../utils/api";
 
@@ -8,16 +9,6 @@ import "../styles/globals.css";
 import localFont from "@next/font/local";
 import { Sriracha } from "@next/font/google";
 
-const wotfard = localFont({
-  src: [
-    {
-      path: "../assets/fonts/wotfard/wotfard-regular-webfont.woff2",
-      weight: "400",
-      style: "normal",
-    },
-  ],
-  variable: "--font-wotfard",
-});
 const bariol = localFont({
   src: [
     {
@@ -68,18 +59,27 @@ const sriacha = Sriracha({
   weight: "400",
   subsets: ["latin"],
 });
+const [bariolFont, barioFallback] = bariol.style.fontFamily.split(",");
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
   pageProps: { session, ...pageProps },
 }) => {
   return (
-    <SessionProvider session={session}>
-      <main
-        className={`${wotfard.variable} ${sriacha.variable} ${bariol.variable} font-sans`}
-      >
-        <Component {...pageProps} />
-      </main>
-    </SessionProvider>
+    <>
+      <style jsx global>{`
+        :root {
+          --font-bariol: ${bariolFont}, ${barioFallback};
+        }
+        html {
+          font-family: var(--font-bariol);
+        }
+      `}</style>
+      <SessionProvider session={session}>
+        <main className={``}>
+          <Component {...pageProps} />
+        </main>
+      </SessionProvider>
+    </>
   );
 };
 
