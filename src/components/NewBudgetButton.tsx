@@ -36,7 +36,7 @@ export default function NewBudgetButton() {
                 <div className="flex items-center justify-between bg-primary-400 p-4">
                   <div>
                     <Dialog.Title asChild>
-                      <p className="">Create a new Budget</p>
+                      <p className="text-2xl">Create New Budget</p>
                     </Dialog.Title>
                   </div>
                   <div>
@@ -49,11 +49,18 @@ export default function NewBudgetButton() {
                   </div>
                 </div>
                 <div
-                  className="mt-10"
+                  className="mt-10 p-4"
                   role="menu"
                   aria-orientation="vertical"
                   aria-labelledby="options-menu"
-                ></div>
+                >
+                  <form action="">
+                    <div className="flex flex-col">
+                      <label htmlFor="budgetPeriod">Date</label>
+                      <input type="month" id="budgetPeriod" />
+                    </div>
+                  </form>
+                </div>
               </motion.div>
             </Dialog.Content>
           </Dialog.Portal>
