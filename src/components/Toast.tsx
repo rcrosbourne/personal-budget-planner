@@ -4,21 +4,24 @@ import { AlertCircle, CheckCircle, Info, X } from "react-feather";
 import classNames from "classnames";
 import { AnimatePresence, motion, PanInfo } from "framer-motion";
 
-type ToastType = "success" | "error" | "info";
-export default function Toast(
+export type ToastProps = {
+  title: string;
+  description: string;
+  type?: ToastType;
+};
+
+export type ToastType = "success" | "error" | "info";
+function Toast(
   {
     title,
     description,
     type = "success",
     openToast,
-  }: // openToast,
-  // setOpenToast,
-  {
+  }: {
     title: string;
     description: string;
     type?: ToastType;
     openToast: boolean;
-    // setOpenToast: React.Dispatch<React.SetStateAction<boolean>>;
   },
   ref: React.ForwardedRef<HTMLDivElement>
 ) {
@@ -87,5 +90,14 @@ export default function Toast(
         )}
       </AnimatePresence>
     </React.Fragment>
+  );
+}
+export function ToastWrapper({ toasts }: { toasts: ToastProps[] }) {
+  return (
+    <div className="fixed bottom-4 right-4 z-50">
+      {toasts.map((toast, index) => (
+        <Toast key={index} {...toast} openToast={true} />
+      ))}
+    </div>
   );
 }

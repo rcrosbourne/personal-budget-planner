@@ -34,6 +34,7 @@ export const budgetRouter = createTRPCRouter({
       if (existingBudget) {
         throw new Error("Budget already exists for this month");
       }
+      firstDay.setMinutes(firstDay.getMinutes() + firstDay.getTimezoneOffset());
       const budgetFromDb = await ctx.prisma.budget.create({
         data: {
           period: firstDay,

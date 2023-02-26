@@ -7,7 +7,9 @@ import { api } from "../utils/api";
 import "../styles/globals.css";
 import localFont from "@next/font/local";
 import { Sriracha } from "@next/font/google";
-import * as Toast from "@radix-ui/react-toast";
+
+import React from "react";
+import ToastProvider from "../components/ToastProvider";
 
 const bariol = localFont({
   src: [
@@ -60,6 +62,8 @@ const sriacha = Sriracha({
   subsets: ["latin"],
 });
 const [bariolFont, barioFallback] = bariol.style.fontFamily.split(",");
+const [sriachaFont, sriachaFallback] = sriacha.style.fontFamily.split(",");
+
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
   pageProps: { session, ...pageProps },
@@ -69,18 +73,18 @@ const MyApp: AppType<{ session: Session | null }> = ({
       <style jsx global>{`
         :root {
           --font-bariol: ${bariolFont}, ${barioFallback};
+          --font-sriacha: ${sriachaFont}, ${sriachaFont};
         }
         html {
           font-family: var(--font-bariol);
         }
       `}</style>
       <SessionProvider session={session}>
-        <Toast.Provider swipeDirection="right">
-          <main className={``}>
+        <ToastProvider>
+          <main className={`${sriacha.variable}`}>
             <Component {...pageProps} />
-            <Toast.Viewport className="fixed bottom-0 right-0 z-[2147483647] m-0 flex w-[390px] max-w-[100vw] list-none flex-col gap-[10px] p-[var(--viewport-padding)] outline-none [--viewport-padding:_25px]" />
           </main>
-        </Toast.Provider>
+        </ToastProvider>
       </SessionProvider>
     </>
   );

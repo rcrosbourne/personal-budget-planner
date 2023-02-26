@@ -8,10 +8,8 @@ import NewBudgetButton from "../components/NewBudgetButton";
 import ViewBudgetHistoryButton from "../components/ViewBudgetHistoryButton";
 import MainActionsWrapper from "../components/MainActionsWrapper";
 import { CtxOrReq } from "next-auth/client/_utils";
-import Toast from "../components/Toast";
 
 export default function Dashboard({ csrfToken }: { csrfToken: string }) {
-  const [openToast, setOpenToast] = React.useState(true);
   return (
     <AuthLayout>
       <Head>
@@ -21,7 +19,7 @@ export default function Dashboard({ csrfToken }: { csrfToken: string }) {
         <header>
           <div className="relative bg-gradient-to-r from-primary-500 to-primary-600 p-4">
             <div className="mx-auto flex w-full max-w-7xl items-center justify-between">
-              <h2 className="text-2xl font-bold text-neutral-100">
+              <h2 className="font-cursive text-2xl font-bold text-neutral-100">
                 Personal Budget Planner
               </h2>
               <MobileMenu>
@@ -41,19 +39,11 @@ export default function Dashboard({ csrfToken }: { csrfToken: string }) {
             <NewBudgetButton csrfToken={csrfToken} />
             <ViewBudgetHistoryButton />
           </MainActionsWrapper>
-
-          <h3 className="mt-4 text-2xl font-bold text-neutral-900 ">
+          <h3 className="mt-4 text-2xl font-bold text-neutral-900">
             March 2022
           </h3>
           {/*    Widget section */}
         </div>
-        <Toast
-          title={"Budget created Successfully"}
-          description={
-            "You have successfully created a new budget for the month of March 2022"
-          }
-          openToast={openToast}
-        />
       </div>
     </AuthLayout>
   );

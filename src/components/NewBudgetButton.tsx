@@ -7,6 +7,7 @@ import type { FieldValues } from "react-hook-form";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import useToast from "../hooks/useToast";
 
 const createBudgetSchema = z.object({
   period: z.string().refine((value) => {
@@ -17,6 +18,7 @@ const createBudgetSchema = z.object({
 
 export default function NewBudgetButton({ csrfToken }: { csrfToken: string }) {
   const [open, setOpen] = React.useState(false);
+  const { showToast } = useToast();
   const createBudgetMutation = api.budget.create.useMutation();
   const {
     register,
@@ -28,8 +30,18 @@ export default function NewBudgetButton({ csrfToken }: { csrfToken: string }) {
   });
   React.useEffect(() => {
     if (createBudgetMutation.isSuccess) {
+      const period = new Date(createBudgetMutation.data.period);
+      period.setMinutes(period.getMinutes() + period.getTimezoneOffset());
+      // Convert period into Month Year format
+      // Remove timezone offset effect
+      let month = period.toLocaleString("default", { month: "long" });
+      let year = period.getFullYear();
+      showToast({
+        title: "Budget created",
+        description: `Your budget has been created for the month of ${month} ${year}`,
+        type: "success",
+      });
       setOpen(false);
-      return;
     }
   }, [createBudgetMutation.isSuccess, setOpen]);
 
@@ -39,12 +51,15 @@ export default function NewBudgetButton({ csrfToken }: { csrfToken: string }) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         period: data.period,
       });
-      console.log("success");
     } catch (error) {
-      console.error(error);
       setError("period", {
         type: "manual",
         message: "Failed create budget",
+      });
+      showToast({
+        title: "Budget creation failure",
+        description: "Failed create budget due to unknown error",
+        type: "error",
       });
     }
   };
