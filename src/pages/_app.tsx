@@ -78,6 +78,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
         <Toast.Provider swipeDirection="right">
           <main className={``}>
             <Component {...pageProps} />
+            <Toast.Viewport className="fixed bottom-0 right-0 z-[2147483647] m-0 flex w-[390px] max-w-[100vw] list-none flex-col gap-[10px] p-[var(--viewport-padding)] outline-none [--viewport-padding:_25px]" />
           </main>
         </Toast.Provider>
       </SessionProvider>

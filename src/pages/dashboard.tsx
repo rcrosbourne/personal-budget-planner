@@ -8,9 +8,10 @@ import NewBudgetButton from "../components/NewBudgetButton";
 import ViewBudgetHistoryButton from "../components/ViewBudgetHistoryButton";
 import MainActionsWrapper from "../components/MainActionsWrapper";
 import { CtxOrReq } from "next-auth/client/_utils";
-import { mockCSRFToken } from "next-auth/client/__tests__/helpers/mocks";
+import Toast from "../components/Toast";
 
 export default function Dashboard({ csrfToken }: { csrfToken: string }) {
+  const [openToast, setOpenToast] = React.useState(true);
   return (
     <AuthLayout>
       <Head>
@@ -46,6 +47,14 @@ export default function Dashboard({ csrfToken }: { csrfToken: string }) {
           </h3>
           {/*    Widget section */}
         </div>
+        <Toast
+          title={"Budget created Successfully"}
+          description={
+            "You have successfully created a new budget for the month of March 2022"
+          }
+          openToast={openToast}
+          setOpenToast={setOpenToast}
+        />
       </div>
     </AuthLayout>
   );
