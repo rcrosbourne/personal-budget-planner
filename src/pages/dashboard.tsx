@@ -53,7 +53,6 @@ export default function Dashboard({ csrfToken }: { csrfToken: string }) {
             "You have successfully created a new budget for the month of March 2022"
           }
           openToast={openToast}
-          setOpenToast={setOpenToast}
         />
       </div>
     </AuthLayout>
