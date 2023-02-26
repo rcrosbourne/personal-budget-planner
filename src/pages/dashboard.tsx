@@ -1,5 +1,5 @@
 import React from "react";
-import { signOut } from "next-auth/react";
+import { getCsrfToken, signOut } from "next-auth/react";
 import AuthLayout from "../components/AuthLayout";
 import MobileMenu from "../components/MobileMenu";
 
@@ -7,8 +7,10 @@ import Head from "next/head";
 import NewBudgetButton from "../components/NewBudgetButton";
 import ViewBudgetHistoryButton from "../components/ViewBudgetHistoryButton";
 import MainActionsWrapper from "../components/MainActionsWrapper";
+import { CtxOrReq } from "next-auth/client/_utils";
+import { mockCSRFToken } from "next-auth/client/__tests__/helpers/mocks";
 
-export default function Dashboard() {
+export default function Dashboard({ csrfToken }: { csrfToken: string }) {
   return (
     <AuthLayout>
       <Head>
@@ -35,7 +37,7 @@ export default function Dashboard() {
         </header>
         <div className="mx-auto px-4">
           <MainActionsWrapper>
-            <NewBudgetButton />
+            <NewBudgetButton csrfToken={csrfToken} />
             <ViewBudgetHistoryButton />
           </MainActionsWrapper>
 
@@ -47,4 +49,10 @@ export default function Dashboard() {
       </div>
     </AuthLayout>
   );
+}
+export async function getServerSideProps(context: CtxOrReq) {
+  const csrfToken = await getCsrfToken(context);
+  return {
+    props: { csrfToken },
+  };
 }

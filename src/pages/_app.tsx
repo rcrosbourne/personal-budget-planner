@@ -1,13 +1,13 @@
 import { type AppType } from "next/app";
 import { type Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
-import Head from "next/head";
 
 import { api } from "../utils/api";
 
 import "../styles/globals.css";
 import localFont from "@next/font/local";
 import { Sriracha } from "@next/font/google";
+import * as Toast from "@radix-ui/react-toast";
 
 const bariol = localFont({
   src: [
@@ -75,9 +75,11 @@ const MyApp: AppType<{ session: Session | null }> = ({
         }
       `}</style>
       <SessionProvider session={session}>
-        <main className={``}>
-          <Component {...pageProps} />
-        </main>
+        <Toast.Provider swipeDirection="right">
+          <main className={``}>
+            <Component {...pageProps} />
+          </main>
+        </Toast.Provider>
       </SessionProvider>
     </>
   );

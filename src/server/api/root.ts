@@ -1,6 +1,7 @@
 import { createTRPCRouter } from "./trpc";
 import { exampleRouter } from "./routers/example";
 import { userRouter } from "./routers/user";
+import { budgetRouter } from "./routers/budget";
 /**
  * This is the primary router for your server.
  *
@@ -8,6 +9,7 @@ import { userRouter } from "./routers/user";
  */
 export const appRouter = createTRPCRouter({
   example: exampleRouter,
+  budget: budgetRouter,
   user: userRouter,
 });
 

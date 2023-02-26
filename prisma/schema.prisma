@@ -50,6 +50,7 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
+    budgets       Budget[]
 }
 
 model VerificationToken {
@@ -58,4 +59,13 @@ model VerificationToken {
     expires    DateTime
 
     @@unique([identifier, token])
+}
+model Budget {
+    id        String   @id @default(cuid())
+    period    DateTime @db.Date
+    userId    String
+    user      User     @relation(fields: [userId], references: [id])
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
 }
