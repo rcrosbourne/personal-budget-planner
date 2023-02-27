@@ -16,7 +16,11 @@ const createBudgetSchema = z.object({
   }, "Invalid date"),
 });
 
-export default function NewBudgetButton({ csrfToken }: { csrfToken: string }) {
+export default function NewBudgetButton({
+  csrfToken,
+}: {
+  csrfToken: string | undefined;
+}) {
   const [open, setOpen] = React.useState(false);
   const { showToast } = useToast();
   const createBudgetMutation = api.budget.create.useMutation();

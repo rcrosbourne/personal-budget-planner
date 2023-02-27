@@ -2,11 +2,8 @@ import { type NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import React from "react";
-import { Menu, X } from "react-feather";
 import AppScreenshot from "../components/AppScreenshot";
-import GuestLayout from "../components/GuestLayout";
-import * as Dialog from "@radix-ui/react-dialog";
-import { Close } from "@radix-ui/react-dialog";
+import GuestLayout from "../components/layout/GuestLayout";
 import MobileMenu from "../components/MobileMenu";
 
 const Home: NextPage = () => {

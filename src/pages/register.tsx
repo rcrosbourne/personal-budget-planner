@@ -12,7 +12,7 @@ import Link from "next/link";
 import Button from "../components/Button";
 import MainWrapper from "../components/MainWrapper";
 import Head from "next/head";
-import GuestLayout from "../components/GuestLayout";
+import GuestLayout from "../components/layout/GuestLayout";
 
 const registerSchema = z
   .object({

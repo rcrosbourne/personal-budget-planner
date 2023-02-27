@@ -1,9 +1,9 @@
-import { getCsrfToken, getSession, signIn } from "next-auth/react";
+import { getCsrfToken, signIn } from "next-auth/react";
 import type { CtxOrReq } from "next-auth/client/_utils";
 import { useRouter } from "next/router";
 import React from "react";
-import { useForm } from "react-hook-form";
 import type { FieldValues } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import TextInput from "../../components/TextInput";
 import Button from "../../components/Button";
@@ -11,7 +11,7 @@ import { z } from "zod";
 import MainWrapper from "../../components/MainWrapper";
 import Link from "next/link";
 import Head from "next/head";
-import GuestLayout from "../../components/GuestLayout";
+import GuestLayout from "../../components/layout/GuestLayout";
 
 const signInSchema = z.object({
   email: z.string().email({ message: "Email address is required" }),
