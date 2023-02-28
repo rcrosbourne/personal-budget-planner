@@ -43,4 +43,14 @@ export const budgetRouter = createTRPCRouter({
       });
       return newBudgetOutputSchema.parse(budgetFromDb);
     }),
+  findAll: protectedProcedure.query(async ({ ctx }) => {
+    return await ctx.prisma.budget.findMany({
+      where: {
+        userId: ctx.session.user.id,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+  }),
 });

@@ -8,6 +8,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import useToast from "../hooks/useToast";
+import { useQueryClient } from "@tanstack/react-query";
+import { getQueryKey } from "@trpc/react-query";
 
 const createBudgetSchema = z.object({
   period: z.string().refine((value) => {
@@ -22,8 +24,15 @@ export default function NewBudgetButton({
   csrfToken: string | undefined;
 }) {
   const [open, setOpen] = React.useState(false);
+  const queryClient = useQueryClient();
+  const queryKey = getQueryKey(api.budget.findAll);
   const { showToast } = useToast();
-  const createBudgetMutation = api.budget.create.useMutation();
+  const createBudgetMutation = api.budget.create.useMutation({
+    onSuccess: async () => {
+      // invalidate query
+      await queryClient.invalidateQueries({ queryKey });
+    },
+  });
   const {
     register,
     handleSubmit,
