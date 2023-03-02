@@ -4,7 +4,7 @@ import Head from "next/head";
 import AppLayout from "../components/layout/AppLayout";
 import { api } from "../utils/api";
 import { Budget } from "@prisma/client";
-import { motion, PanInfo } from "framer-motion";
+import { AnimatePresence, motion, PanInfo } from "framer-motion";
 
 function showBudget(period: Date) {
   period.setMinutes(period.getMinutes() + period.getTimezoneOffset());
@@ -25,6 +25,7 @@ export default function Dashboard() {
   const [currentBudget, setCurrentBudget] = React.useState<Budget | undefined>(
     undefined
   );
+  const [initialX, setInitialX] = React.useState(0);
   const handleDragEnd = (
     event: MouseEvent | TouchEvent | PointerEvent,
     info: PanInfo
@@ -35,6 +36,7 @@ export default function Dashboard() {
         // decrement budget
         setCurrentBudgetIndex(currentBudgetIndex - 1);
         setCurrentBudget(budgets[currentBudgetIndex - 1]);
+        setInitialX(info.offset.x * -1);
         return;
       }
       setLeft(0);
@@ -45,6 +47,7 @@ export default function Dashboard() {
       ) {
         setCurrentBudgetIndex(currentBudgetIndex + 1);
         setCurrentBudget(budgets[currentBudgetIndex + 1]);
+        setInitialX(info.offset.x * -1);
         return;
       }
       setRight(0);
@@ -62,20 +65,32 @@ export default function Dashboard() {
       <Head>
         <title>Dashboard</title>
       </Head>
-      <div className="h-full">
-        {currentBudget && (
-          <motion.div
-            key={currentBudget.id}
-            drag={"x"}
-            onDragEnd={(event, info) => handleDragEnd(event, info)}
-            dragConstraints={{ left, right }}
-            className={"min-h-full w-full bg-neutral-100"}
-          >
-            <h3 className="mt-4 text-2xl font-bold text-neutral-900">
-              {`${showBudget(currentBudget.period)}`}
-            </h3>
-          </motion.div>
-        )}
+      <div className="relative h-full">
+        <AnimatePresence>
+          {currentBudget && (
+            <motion.div
+              key={currentBudget.id}
+              drag={"x"}
+              onDragEnd={(event, info) => handleDragEnd(event, info)}
+              dragConstraints={{ left, right }}
+              className={"absolute mt-4 min-h-full w-full bg-neutral-100"}
+              initial={{ x: initialX }}
+              animate={{ x: 0 }}
+              exit={{ x: initialX * -1 }}
+              transition={{
+                type: "spring",
+                stiffness: 300,
+                damping: 30,
+                duration: 0.5,
+                delay: 0.2,
+              }}
+            >
+              <h3 className="mt-4 text-2xl font-bold text-neutral-900">
+                {`${showBudget(currentBudget.period)}`}
+              </h3>
+            </motion.div>
+          )}
+        </AnimatePresence>
         {/*{budgets.map((budget) => (*/}
         {/*  <div key={budget.id}>*/}
         {/*    <h3 className="mt-4 text-2xl font-bold text-neutral-900">*/}
