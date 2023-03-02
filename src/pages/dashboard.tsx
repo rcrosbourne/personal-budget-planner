@@ -22,6 +22,9 @@ export default function Dashboard() {
   const [currentBudgetIndex, setCurrentBudgetIndex] = React.useState<
     number | undefined
   >(undefined);
+  const [currentBudget, setCurrentBudget] = React.useState<Budget | undefined>(
+    undefined
+  );
   const handleDragEnd = (
     event: MouseEvent | TouchEvent | PointerEvent,
     info: PanInfo
@@ -31,6 +34,7 @@ export default function Dashboard() {
       if (currentBudgetIndex !== undefined && currentBudgetIndex > 0) {
         // decrement budget
         setCurrentBudgetIndex(currentBudgetIndex - 1);
+        setCurrentBudget(budgets[currentBudgetIndex - 1]);
         return;
       }
       setLeft(0);
@@ -40,6 +44,7 @@ export default function Dashboard() {
         currentBudgetIndex < budgets.length - 1
       ) {
         setCurrentBudgetIndex(currentBudgetIndex + 1);
+        setCurrentBudget(budgets[currentBudgetIndex + 1]);
         return;
       }
       setRight(0);
@@ -49,27 +54,25 @@ export default function Dashboard() {
     if (findBudgetQuery.data) {
       setBudgets(findBudgetQuery.data);
       setCurrentBudgetIndex(0);
+      setCurrentBudget(findBudgetQuery.data[0]);
     }
   }, [findBudgetQuery.data]);
-  React.useEffect(() => {
-    console.log(currentBudgetIndex);
-  }, [currentBudgetIndex]);
   return (
     <AppLayout>
       <Head>
         <title>Dashboard</title>
       </Head>
       <div className="h-full">
-        {currentBudgetIndex !== undefined && (
+        {currentBudget && (
           <motion.div
-            key={budgets[currentBudgetIndex].id}
+            key={currentBudget.id}
             drag={"x"}
             onDragEnd={(event, info) => handleDragEnd(event, info)}
             dragConstraints={{ left, right }}
             className={"min-h-full w-full bg-neutral-100"}
           >
             <h3 className="mt-4 text-2xl font-bold text-neutral-900">
-              {`${showBudget(budgets[currentBudgetIndex].period)}`}
+              {`${showBudget(currentBudget.period)}`}
             </h3>
           </motion.div>
         )}
