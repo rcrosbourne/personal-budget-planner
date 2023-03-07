@@ -5,6 +5,8 @@ import AppLayout from "../components/layout/AppLayout";
 import { api } from "../utils/api";
 import { Budget } from "@prisma/client";
 import { AnimatePresence, motion, PanInfo } from "framer-motion";
+import { Plus } from "react-feather";
+import BarChart from "../components/BarChart";
 
 function showBudget(period: Date) {
   period.setMinutes(period.getMinutes() + period.getTimezoneOffset());
@@ -73,7 +75,9 @@ export default function Dashboard() {
               drag={"x"}
               onDragEnd={(event, info) => handleDragEnd(event, info)}
               dragConstraints={{ left, right }}
-              className={"absolute mt-4 min-h-full w-full bg-neutral-100"}
+              className={
+                "absolute mt-4 min-h-full w-full rounded bg-neutral-50 px-4"
+              }
               initial={{ x: initialX }}
               animate={{ x: 0 }}
               exit={{ x: initialX * -1 }}
@@ -88,6 +92,24 @@ export default function Dashboard() {
               <h3 className="mt-4 text-2xl font-bold text-neutral-900">
                 {`${showBudget(currentBudget.period)}`}
               </h3>
+              <div className="mt-4 grid grid-cols-2 gap-14">
+                <div className="max-h-[96px] max-w-[171px] rounded-md bg-secondary-yellow-500 px-4 py-3 shadow-lg">
+                  <div className="flex items-center justify-between">
+                    <div className="flex flex-1 flex-col">
+                      <span className="text-xs font-thin">Expenses</span>
+                      <span className="text-sm font-bold">$2,500,650.34</span>
+                    </div>
+                    <div>
+                      <button className="flex h-6 w-6 items-center justify-center rounded-full bg-neutral-50">
+                        <Plus width={10} height={10} />
+                      </button>
+                    </div>
+                  </div>
+                  <div className="mt-0.5">
+                    <BarChart values={[100, 400, 700, 300, 150, 30, 80]} />
+                  </div>
+                </div>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>

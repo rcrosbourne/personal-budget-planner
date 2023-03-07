@@ -17,7 +17,7 @@ export default function AppLayout({
 }) {
   return (
     <AuthLayout>
-      <div className="min-h-full">
+      <div className="h-full">
         <header>
           <div className="relative bg-gradient-to-r from-primary-500 to-primary-600 p-4">
             <div className="mx-auto flex w-full max-w-7xl items-center justify-between">
@@ -38,12 +38,12 @@ export default function AppLayout({
             </div>
           </div>
         </header>
-        <div className="mx-auto min-h-full px-4">
+        <div className="mx-auto h-full px-4">
           <MainActionsWrapper>
             <NewBudgetButton csrfToken={csrfToken} />
             <ViewBudgetHistoryButton />
           </MainActionsWrapper>
-          <div className="min-h-full">{children}</div>
+          <div className="h-full">{children}</div>
         </div>
       </div>
     </AuthLayout>
