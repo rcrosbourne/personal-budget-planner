@@ -1,6 +1,5 @@
 import React from "react";
 import { PlusCircle, X } from "react-feather";
-// import * as Dialog from "@radix-ui/react-dialog";
 import { api } from "../utils/api";
 import type { FieldValues } from "react-hook-form";
 import { useForm } from "react-hook-form";
@@ -89,7 +88,7 @@ export default function NewBudgetButton({
             <span className="text-2xl">New</span>
           </button>
         }
-        title={<Title />}
+        title={<p className="text-2xl">Create New Budget</p>}
         closeButton={
           <button>
             <X className="text-neutral-900" />
@@ -134,22 +133,3 @@ export default function NewBudgetButton({
     </>
   );
 }
-const CloseButton = () => {
-  return (
-    <button>
-      <X className="text-neutral-900" />
-      <span className="sr-only">Close menu</span>
-    </button>
-  );
-};
-function Title() {
-  return <p className="text-2xl">Create New Budget</p>;
-}
-const TriggerButton = () => {
-  return (
-    <button className="flex items-center justify-around rounded-md border border-transparent bg-primary-500 px-8 py-5 text-white shadow-sm hover:bg-primary-800 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2">
-      <PlusCircle size={30} />
-      <span className="text-2xl">New</span>
-    </button>
-  );
-};
