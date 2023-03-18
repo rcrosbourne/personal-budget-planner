@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import React from "react";
 import { ArrowDownLeft } from "react-feather";
 
@@ -16,10 +17,16 @@ export default function BarChart({ values }: { values: number[] }) {
       <div className="grid h-10 flex-1 grid-flow-col grid-cols-7">
         {percentages &&
           percentages.map((percentage, index) => (
-            <div
+            <motion.div
               key={index}
               className="w-2 self-end  rounded-t-sm bg-secondary-purple-500"
               style={{ height: `${percentage}%` }}
+              initial={{ height: `0%` }}
+              animate={{ height: `${percentage}%` }}
+              transition={{
+                duration: 0.4,
+                delay: 0.2,
+              }}
             />
           ))}
       </div>
