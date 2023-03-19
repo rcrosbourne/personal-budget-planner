@@ -6,6 +6,8 @@ import { api } from "../utils/api";
 import { Budget } from "@prisma/client";
 import { AnimatePresence, motion, PanInfo } from "framer-motion";
 import AddExpense from "../components/AddExpense";
+import { CtxOrReq } from "next-auth/client/_utils";
+import { getCsrfToken } from "next-auth/react";
 
 function showBudget(period: Date) {
   period.setMinutes(period.getMinutes() + period.getTimezoneOffset());
@@ -14,7 +16,11 @@ function showBudget(period: Date) {
   })} ${period.getFullYear()}`;
 }
 
-export default function Dashboard() {
+export default function Dashboard({
+  csrfToken,
+}: {
+  csrfToken: string | undefined;
+}) {
   // get all budgets
   const findBudgetQuery = api.budget.findAll.useQuery();
   const [budgets, setBudgets] = React.useState<Budget[]>([]);
@@ -92,7 +98,7 @@ export default function Dashboard() {
                 {`${showBudget(currentBudget.period)}`}
               </h3>
               <div className="mt-4 grid grid-cols-2 gap-14">
-                <AddExpense budget={currentBudget} />
+                <AddExpense budget={currentBudget} csrfToken={csrfToken} />
               </div>
             </motion.div>
           )}
@@ -100,4 +106,10 @@ export default function Dashboard() {
       </div>
     </AppLayout>
   );
+}
+export async function getServerSideProps(context: CtxOrReq) {
+  const csrfToken = await getCsrfToken(context);
+  return {
+    props: { csrfToken },
+  };
 }

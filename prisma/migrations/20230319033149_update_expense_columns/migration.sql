@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Expense" ALTER COLUMN "category" DROP NOT NULL,
+ALTER COLUMN "dueDate" DROP NOT NULL;
